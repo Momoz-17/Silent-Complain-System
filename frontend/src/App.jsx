@@ -5,6 +5,7 @@ import ComplaintForm from './components/ComplaintForm';
 import AdminDashboard from './components/AdminDashboard';
 import AdminLogin from './components/AdminLogin';
 import SafetyTips from './components/SafetyTips';
+import Transparency from './components/Transparency';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('adminToken'));
@@ -23,6 +24,7 @@ function App() {
           </Link>
 
           <div className="flex gap-8 font-medium items-center">
+            <Link to="/transparency" className="hover:text-red-500 transition text-gray-600">Track Progress</Link>
             <Link to="/safety-tips" className="hover:text-red-500 transition">Safety Tips</Link>
 
             {/* Link to the new /report page */}
@@ -42,16 +44,11 @@ function App() {
         </nav>
 
         <Routes>
-          {/* Landing Page is now Home */}
           <Route path="/" element={<Home />} />
-          
-          {/* Form is now moved to /report */}
           <Route path="/report" element={<ComplaintForm />} />
-          
+          <Route path="/transparency" element={<Transparency />} />
           <Route path="/safety-tips" element={<SafetyTips />} />
           <Route path="/admin" element={token ? <AdminDashboard /> : <AdminLogin setToken={setToken} />} />
-          
-          {/* Redirect unknown routes back to Home */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
