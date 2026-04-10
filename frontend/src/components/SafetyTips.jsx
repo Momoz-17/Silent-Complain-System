@@ -127,5 +127,4 @@ const SafetyTips = () => {
     );
 };
 
-
 export default SafetyTips;
