@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 const path = require('path');
 const complaintRoutes = require('./routes/complaintRoutes');
 const Admin = require('./models/Admin');
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
