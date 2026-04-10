@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import Home from './components/Home'; // New Import
 import ComplaintForm from './components/ComplaintForm';
 import AdminDashboard from './components/AdminDashboard';
 import AdminLogin from './components/AdminLogin';
+import SafetyTips from './components/SafetyTips';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('adminToken'));
@@ -16,17 +18,22 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
         <nav className="bg-white shadow-md p-4 flex justify-between px-10 items-center">
-          <h1 className="font-bold text-2xl text-red-600 tracking-tight">Community Connect</h1>
+          <Link to="/" className="hover:opacity-80 transition">
+            <h1 className="font-bold text-2xl text-red-600 tracking-tight">Silent Complaint</h1>
+          </Link>
+
           <div className="flex gap-8 font-medium items-center">
-            {/* HIDE Report Issue if admin is logged in */}
+            <Link to="/safety-tips" className="hover:text-red-500 transition">Safety Tips</Link>
+
+            {/* Link to the new /report page */}
             {!token && (
-              <Link to="/" className="hover:text-red-500 transition">Report Issue</Link>
+              <Link to="/report" className="hover:text-red-500 transition">Report Issue</Link>
             )}
             
             {token ? (
               <>
                 <Link to="/admin" className="hover:text-red-500 transition font-bold text-red-600">Dashboard</Link>
-                <button onClick={logout} className="text-gray-600 hover:text-red-500 border px-3 py-1 rounded-lg">Logout</button>
+                <button onClick={logout} className="text-gray-600 hover:text-red-500 border border-gray-300 px-4 py-1 rounded-lg">Logout</button>
               </>
             ) : (
               <Link to="/admin" className="text-gray-600 hover:text-red-500">Admin Portal</Link>
@@ -35,10 +42,16 @@ function App() {
         </nav>
 
         <Routes>
-          <Route path="/" element={<ComplaintForm />} />
-          <Route path="/admin" element={
-            token ? <AdminDashboard /> : <AdminLogin setToken={setToken} />
-          } />
+          {/* Landing Page is now Home */}
+          <Route path="/" element={<Home />} />
+          
+          {/* Form is now moved to /report */}
+          <Route path="/report" element={<ComplaintForm />} />
+          
+          <Route path="/safety-tips" element={<SafetyTips />} />
+          <Route path="/admin" element={token ? <AdminDashboard /> : <AdminLogin setToken={setToken} />} />
+          
+          {/* Redirect unknown routes back to Home */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
