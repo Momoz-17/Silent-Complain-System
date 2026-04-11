@@ -8,15 +8,17 @@ const Transparency = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/complaints/all');
+                // UPDATED URL TO RENDER WITH FULL ROUTE PATH
+                const res = await axios.get('https://silent-complain-system.onrender.com/api/complaints/all');
                 const complaints = res.data;
                 setStats({
                     total: complaints.length,
                     resolved: complaints.filter(c => c.status === "Resolved").length
                 });
-                // Get last 5 resolved issues to show progress
                 setRecentLogs(complaints.filter(c => c.status === "Resolved").slice(0, 5));
-            } catch (err) { console.error(err); }
+            } catch (err) { 
+                console.error("Transparency Fetch Error:", err); 
+            }
         };
         fetchData();
     }, []);
@@ -27,7 +29,6 @@ const Transparency = () => {
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">Transparency Portal</h1>
                 <p className="text-gray-500 mb-10">Real-time updates on community safety and resolutions.</p>
 
-                {/* Stat Cards */}
                 <div className="grid grid-cols-2 gap-6 mb-12">
                     <div className="bg-red-50 p-6 rounded-2xl border border-red-100">
                         <span className="text-4xl font-black text-red-600">{stats.total}</span>
@@ -39,10 +40,9 @@ const Transparency = () => {
                     </div>
                 </div>
 
-                {/* Recent Resolutions */}
                 <h2 className="text-xl font-bold mb-6">Recently Resolved</h2>
                 <div className="space-y-4">
-                    {recentLogs.map(log => (
+                    {recentLogs.length > 0 ? recentLogs.map(log => (
                         <div key={log._id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg border border-gray-100">
                             <div className="bg-green-500 text-white p-2 rounded-full">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
@@ -52,7 +52,9 @@ const Transparency = () => {
                                 <p className="text-sm text-gray-500">Location: {log.address} • Fixed on {new Date(log.updatedAt || log.createdAt).toLocaleDateString()}</p>
                             </div>
                         </div>
-                    ))}
+                    )) : (
+                        <p className="text-gray-400 italic">No issues resolved yet.</p>
+                    )}
                 </div>
             </div>
         </div>

@@ -24,10 +24,10 @@ const ComplaintForm = () => {
         data.append('evidence', formData.evidence);
 
         try {
-            await axios.post('http://localhost:5000/api/complaints/submit', data);
+            // UPDATED URL TO RENDER
+            await axios.post('https://silent-complain-system.onrender.com/api/complaints/submit', data);
             alert("Submitted Secretly!");
             
-            // CLEAR FORM
             setFormData({
                 category: 'Safety',
                 description: '',
@@ -35,8 +35,9 @@ const ComplaintForm = () => {
                 contact: '',
                 evidence: null
             });
-            e.target.reset(); // Resets the file input visual
+            e.target.reset(); 
         } catch (err) {
+            console.error(err);
             alert("Error submitting. Please try again.");
         }
     };
