@@ -9,10 +9,10 @@ const Home = () => {
                 <div className="mx-auto max-w-2xl py-20">
                     <div className="text-center">
                         <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                            Speak Up, <span className="text-red-600">Stay Anonymous.</span>
+                            Speak Up, <span className="text-red-600">Stay Safe.</span>
                         </h1>
                         <p className="mt-6 text-lg leading-8 text-gray-600">
-                            Silent Complaint is a secure platform designed for students and community members to report safety, harassment, and cleanliness issues without fear of retaliation.
+                            Complaint System is a secure platform designed for students and community members to report safety, harassment, and cleanliness issues without fear of retaliation.
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6">
                             <Link
@@ -33,7 +33,7 @@ const Home = () => {
             <div className="py-20 bg-white">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">How Silent Complaint Works</h2>
+                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">How Complaint System Works</h2>
                         <p className="mt-4 text-gray-600">Our priority is your privacy and the community's safety.</p>
                     </div>
                     <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">

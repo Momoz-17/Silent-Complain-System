@@ -25,7 +25,7 @@ const ComplaintForm = () => {
 
         try {
             // UPDATED URL TO RENDER
-            await axios.post('https://silent-complain-system.onrender.com/api/complaints/submit', data);
+            await axios.post('http://localhost:5000/api/complaints/submit', data); //https://silent-complain-system.onrender.com/api/complaints/submit
             alert("Submitted Secretly!");
             
             setFormData({
@@ -45,7 +45,7 @@ const ComplaintForm = () => {
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
             <form onSubmit={handleSubmit} className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-lg space-y-6">
-                <h1 className="text-3xl font-bold text-gray-900 border-b pb-4">Silent Complaint Portal</h1>
+                <h1 className="text-3xl font-bold text-gray-900 border-b pb-4">Complaint System Portal</h1>
                 <div className="space-y-4">
                     <div>
                         <label className="block text-sm font-semibold text-gray-700">Category</label>

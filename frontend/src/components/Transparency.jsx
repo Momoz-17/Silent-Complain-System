@@ -9,7 +9,7 @@ const Transparency = () => {
         const fetchData = async () => {
             try {
                 // UPDATED URL TO RENDER WITH FULL ROUTE PATH
-                const res = await axios.get('https://silent-complain-system.onrender.com/api/complaints/all');
+                const res = await axios.get('http://localhost:5000/api/complaints/all');    // https://silent-complain-system.onrender.com/api/complaints/all
                 const complaints = res.data;
                 setStats({
                     total: complaints.length,

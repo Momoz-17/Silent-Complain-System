@@ -20,7 +20,7 @@ function App() {
       <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
         <nav className="bg-white shadow-md p-4 flex justify-between px-10 items-center">
           <Link to="/" className="hover:opacity-80 transition">
-            <h1 className="font-bold text-2xl text-red-600 tracking-tight">Silent Complaint</h1>
+            <h1 className="font-bold text-2xl text-red-600 tracking-tight">Complaint System</h1>
           </Link>
 
           <div className="flex gap-8 font-medium items-center">
