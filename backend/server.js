@@ -28,18 +28,29 @@ if (!process.env.MONGO_URI) {
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-dns.setDefaultResultOrder('ipv4first');
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
+
+// Render (like Heroku) puts your service behind a reverse proxy/load balancer.
+// Without this, req.ip always resolves to Render's internal proxy IP instead
+// of the real visitor IP, which breaks express-rate-limit (everyone gets
+// lumped into one shared rate-limit bucket) and makes your logs useless.
+app.set('trust proxy', 1);
 
 // --- Security & parsing middleware ---
 app.use(helmet());
 app.use(express.json());
 
-// CORS: restrict to your actual frontend origin in production via ALLOWED_ORIGIN.
+// CORS: restrict to your actual frontend origin(s) in production via ALLOWED_ORIGIN.
+// Supports a comma-separated list (e.g. your Render static site URL + a
+// custom domain later): "https://your-app.onrender.com,https://yourdomain.com"
 // Wide-open cors() (any origin) is fine for local dev but you don't want that
 // on a live server that also holds an admin login endpoint.
-const allowedOrigin = process.env.ALLOWED_ORIGIN;
-app.use(cors(allowedOrigin ? { origin: allowedOrigin } : {}));
+const allowedOrigins = (process.env.ALLOWED_ORIGIN || '')
+    .split(',')
+    .map(o => o.trim())
+    .filter(Boolean);
+
+app.use(cors(allowedOrigins.length ? { origin: allowedOrigins } : {}));
 
 // Serve the uploads folder statically so images can be viewed in the dashboard
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
